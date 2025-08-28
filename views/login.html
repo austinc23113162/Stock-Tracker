@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login | Stock Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: #f2f4f7;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: #333;
+      font-weight: 600;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      color: #555;
+      font-weight: 600;
+    }
+
+    input {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      padding: 0.75rem;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2563eb;
+    }
+
+    button:disabled {
+        background-color: #9ca3af; /* Gray background */
+        cursor: not-allowed;
+        opacity: 0.6;
+        transition: background 0.3s ease, opacity 0.3s ease;
+    }
+
+    #errorMessage {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background-color: #ffe3e3;
+      color: #d8000c;
+      border: 1px solid #ffb3b3;
+      border-radius: 0.75rem;
+      font-size: 0.95rem;
+      text-align: center;
+      display: none;
+    }
+
+    .footer, .link {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .footer a, .link a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+
+    .footer a:hover, .link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Welcome Back</h2>
+    <form id="loginForm">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" autocomplete="email" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" required />
+
+      <div id="errorMessage"></div>
+      <button type="submit">Login</button>
+    </form>
+    <div class="link">
+      Don't have an account? <a href="/register">Register</a>
+    </div>
+  </div>
+
+  <script>
+        window.onload = function() {
+            submission();
+            check_change();
+        }
+
+        function submission() {
+            const form = document.getElementById('loginForm');
+            const errorDiv = document.getElementById('errorMessage');
+            const submitBtn = form.querySelector('button[type="submit"]');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                submitBtn.disabled = true; // Disable button to prevent multiple submissions
+
+                const email = form.email.value;
+                const password = form.password.value;
+
+                try {
+                    const response = await fetch('/auth/loginUser', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email, password }),
+                        credentials: "include" //include cookies in the request
+                    });
+
+                    const result = await response.json();
+
+                    if(response.ok) {
+                        window.location.href = '/form'; // redirect to dashboard
+                    }
+                    else {
+                        errorDiv.innerText = "Login failed: " + result.error || 'Login failed.';
+                        errorDiv.style.display = 'block'; // Show error message
+                    }
+                } catch(err) {
+                    console.log(err);
+                    errorDiv.innerText = 'Internal server error.';
+                }
+                });
+        }
+
+        function check_change() {
+            const form = document.getElementById("loginForm");
+            const errorDiv = document.getElementById("errorMessage");
+            const submitBtn = document.querySelector("button[type='submit']");
+            for(const input of form.elements) {
+                if(input.type != "submit") {
+                    input.addEventListener("input", function() {
+                        errorDiv.style.display = "none"; // Hide error message on input change
+                        submitBtn.disabled = false; // Re-enable button on input change
+                    });
+                }
+            }
+
+        }
+  </script>
+</body>
+</html>

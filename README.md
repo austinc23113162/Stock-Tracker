@@ -40,8 +40,10 @@ This project is my first solo full-stack app. While simple in design, it taught 
 
 **Security matters**
   - Implementing a secure account system with password hashing and JWT authentication stored in HTTP-only cookies to mitigate CSRF and XSS attacks
+    
 **Clean architecture**
   - Structuring my code and repositories in a professional way to improve readability, maintainability, and scalability
+    
 **Building a REST API**
   - Practical experience in designing a REST API
 

@@ -36,7 +36,7 @@ A full-stack web application that lets users search, track, and bookmark stocks 
 
 ## Final Thoughts
 
-This project is my first solo full-stack app. While simple my design, it taught me fundamental concepts and skills in developing professional web applications. My key takeaways include:
+This project is my first solo full-stack app. While simple in design, it taught me fundamental concepts and skills in developing professional web applications. My key takeaways include:
 
 **Security matters**
   - Implementing a secure account system with password hashing and JWT authentication stored in HTTP-only cookies to mitigate CSRF and XSS attacks

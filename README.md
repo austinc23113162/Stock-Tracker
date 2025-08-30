@@ -33,7 +33,12 @@ A full-stack web application that lets users search, track, and bookmark stocks 
 - Third-party API: [Finnhub](https://finnhub.io)
 
 ---
+## Future Improvements
 
+- Adding cron job to update cached price automatically
+- Implementing a customizable alert system
+  
+---
 ## Final Thoughts
 
 This project is my first solo full-stack app. While simple in design, it taught me fundamental concepts and skills in developing professional web applications. My key takeaways include:

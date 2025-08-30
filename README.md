@@ -8,7 +8,7 @@ A full-stack web application that lets users search, track, and bookmark stocks 
 
 ## Features  
 
-- **User Authentication & Authorization** — secure register/login system with authorization measures
+- **User Authentication & Authorization** — secure register/login system with authentication measures
 - **Search Stocks** — find companies by ticker or name using real-time financial data
 - **Latest News** — view related news for each company
 - **Bookmarks** — toggleable bookmark icon to save or remove companies from your list  
